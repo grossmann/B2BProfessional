@@ -121,7 +121,10 @@ class Sitewards_B2BProfessional_Model_Observer
      */
     public function coreBlockAbstractToHtmlBefore(Varien_Event_Observer $oObserver)
     {
-        if ($this->isExtensionActive()) {
+    	/* @var $oB2BCustomerHelper Sitewards_B2BProfessional_Helper_Customer */
+    	$oB2BCustomerHelper = Mage::helper('sitewards_b2bprofessional/customer');
+    	
+        if ($this->isExtensionActive() && !$oB2BCustomerHelper->isCustomerLoggedIn()) {
             $oBlock = $oObserver->getData('block');
 
             if ($oBlock instanceof Mage_Catalog_Block_Product_List_Toolbar) {
